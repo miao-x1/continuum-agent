@@ -1,0 +1,20 @@
+services:
+  continuum:
+    build: .
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      CONTINUUM_PROVIDER: ${CONTINUUM_PROVIDER:-openai}
+      CONTINUUM_MODEL: ${CONTINUUM_MODEL:-gpt-4.1-mini}
+      CONTINUUM_API_KEY: ${CONTINUUM_API_KEY:-}
+      CONTINUUM_BASE_URL: ${CONTINUUM_BASE_URL:-https://api.openai.com/v1}
+    volumes:
+      - continuum_data:/var/lib/continuum/data
+      - continuum_workspace:/var/lib/continuum/workspace
+      - continuum_skills:/var/lib/continuum/skills
+    restart: unless-stopped
+
+volumes:
+  continuum_data:
+  continuum_workspace:
+  continuum_skills:
